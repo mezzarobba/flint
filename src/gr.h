@@ -117,6 +117,8 @@ typedef enum
     GR_METHOD_CTX_IS_COMPLEX_VECTOR_SPACE,
     GR_METHOD_CTX_IS_ORDERED_RING,
 
+    GR_METHOD_CTX_IS_APPROX_COMMUTATIVE_RING,
+
     /* group properties */
     GR_METHOD_CTX_IS_MULTIPLICATIVE_GROUP,
 
@@ -724,7 +726,7 @@ typedef enum
     GR_CTX_NFLOAT, GR_CTX_NFLOAT_COMPLEX,
     GR_CTX_MPF,
     GR_CTX_FMPZ_POLY, GR_CTX_FMPQ_POLY, GR_CTX_GR_POLY,
-    GR_CTX_FMPZ_MPOLY, GR_CTX_GR_MPOLY,
+    GR_CTX_FMPZ_MPOLY, GR_CTX_FMPQ_MPOLY, GR_CTX_GR_MPOLY,
     GR_CTX_FMPZ_MPOLY_Q,
     GR_CTX_FMPZ_MOD_MPOLY_Q,
     GR_CTX_GR_ORE_POLY,
@@ -973,12 +975,13 @@ GR_INLINE truth_t gr_ctx_is_zero_ring(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ct
 GR_INLINE truth_t gr_ctx_is_rational_vector_space(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_RATIONAL_VECTOR_SPACE)(ctx); }
 GR_INLINE truth_t gr_ctx_is_real_vector_space(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_REAL_VECTOR_SPACE)(ctx); }
 GR_INLINE truth_t gr_ctx_is_complex_vector_space(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_COMPLEX_VECTOR_SPACE)(ctx); }
-
 GR_INLINE truth_t gr_ctx_is_unique_factorization_domain(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_UNIQUE_FACTORIZATION_DOMAIN)(ctx); }
 GR_INLINE truth_t gr_ctx_is_finite(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_FINITE)(ctx); }
 GR_INLINE truth_t gr_ctx_is_finite_characteristic(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_FINITE_CHARACTERISTIC)(ctx); }
 GR_INLINE truth_t gr_ctx_is_algebraically_closed(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_ALGEBRAICALLY_CLOSED)(ctx); }
 GR_INLINE truth_t gr_ctx_is_ordered_ring(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_ORDERED_RING)(ctx); }
+
+GR_INLINE truth_t gr_ctx_is_approx_commutative_ring(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_APPROX_COMMUTATIVE_RING)(ctx); }
 
 GR_INLINE truth_t gr_ctx_is_multiplicative_group(gr_ctx_t ctx) { return GR_CTX_PREDICATE(ctx, CTX_IS_MULTIPLICATIVE_GROUP)(ctx); }
 
@@ -1388,6 +1391,8 @@ void gr_ctx_init_random(gr_ctx_t ctx, flint_rand_t state);
 void gr_ctx_init_random_poly(gr_ctx_t ctx, flint_rand_t state);
 void gr_ctx_init_random_mpoly(gr_ctx_t ctx, flint_rand_t state);
 void gr_ctx_init_random_series(gr_ctx_t ctx, flint_rand_t state);
+void gr_ctx_init_random_commutative_ring(gr_ctx_t ctx, flint_rand_t state);
+void gr_ctx_init_random_field(gr_ctx_t ctx, flint_rand_t state);
 
 void gr_ctx_init_fmpz(gr_ctx_t ctx);
 void gr_ctx_init_fmpq(gr_ctx_t ctx);
@@ -1467,6 +1472,7 @@ void gr_ctx_init_gr_poly(gr_ctx_t ctx, gr_ctx_t base_ring);
 
 #ifdef MPOLY_H
 void gr_ctx_init_fmpz_mpoly(gr_ctx_t ctx, slong nvars, const ordering_t ord);
+void gr_ctx_init_fmpq_mpoly(gr_ctx_t ctx, slong nvars, const ordering_t ord);
 void gr_ctx_init_gr_mpoly(gr_ctx_t ctx, gr_ctx_t base_ring, slong nvars, const ordering_t ord);
 #endif
 
